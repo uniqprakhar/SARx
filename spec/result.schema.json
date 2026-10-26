@@ -1,0 +1,18 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sarx.dev/spec/v1/result.schema.json",
+  "title": "sarx parsed result (result.json)",
+  "type": "object",
+  "required": ["status", "source"],
+  "properties": {
+    "status": { "enum": ["DONE", "DONE_WITH_NOTES", "BLOCKED", "FAILED", "UNMARKED", "NO_REPORT"] },
+    "source": { "enum": ["file", "stdout", "none"] },
+    "resolution": { "type": "string" },
+    "claimed_checks": {
+      "type": "object",
+      "properties": { "pass": { "type": "integer" }, "fail": { "type": "integer" } }
+    },
+    "files": { "type": "array", "items": { "type": "string" } },
+    "notes": { "type": "string" }
+  }
+}

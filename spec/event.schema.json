@@ -1,0 +1,12 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sarx.dev/spec/v1/event.schema.json",
+  "title": "sarx event (one line of events.jsonl)",
+  "type": "object",
+  "required": ["ts", "type"],
+  "properties": {
+    "ts": { "type": "integer", "description": "Unix seconds." },
+    "type": { "enum": ["dispatched", "queued", "started", "exited", "state", "verify", "warning", "stop", "resume", "retry"] },
+    "msg": { "type": "string" }
+  }
+}

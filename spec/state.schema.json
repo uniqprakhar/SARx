@@ -1,0 +1,63 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://sarx.dev/spec/v1/state.schema.json",
+  "title": "sarx task state",
+  "type": "object",
+  "required": ["version", "id", "state", "agent", "role", "mode", "attempt", "started", "task_dir", "task", "result", "progress", "journal", "subtasks"],
+  "properties": {
+    "version": { "const": 1 },
+    "id": { "type": "string", "description": "Task directory name, e.g. 01-add-retry." },
+    "run": { "type": "string" },
+    "title": { "type": "string" },
+    "state": {
+      "enum": ["QUEUED", "RUNNING", "DONE", "DONE_WITH_NOTES", "BLOCKED", "FAILED", "QUOTA", "CRASHED", "TIMEOUT", "NO_REPORT", "UNMARKED", "CANCELLED"]
+    },
+    "agent": { "type": "string" },
+    "role": { "type": "string" },
+    "adapter": { "type": "string" },
+    "mode": { "enum": ["rw", "ro"] },
+    "exit": { "type": "integer" },
+    "seconds": { "type": "integer" },
+    "started": { "type": "integer", "description": "Unix seconds." },
+    "finished": { "type": "integer" },
+    "pid": { "type": "integer", "description": "Worker process id." },
+    "supervisor_pid": { "type": "integer", "description": "Engine process id supervising the worker." },
+    "session": { "type": "string" },
+    "resumed": { "type": "string" },
+    "attempt": { "type": "integer", "minimum": 1 },
+    "subtasks": { "type": "integer", "minimum": 0 },
+    "task_dir": { "type": "string" },
+    "task": { "type": "string" },
+    "result": { "type": "string" },
+    "progress": { "type": "string" },
+    "journal": { "type": "string" },
+    "stdout": { "type": "string" },
+    "stderr": { "type": "string" },
+    "lock": { "type": "string" },
+    "isolation": { "enum": ["none", "worktree"] },
+    "worktree": { "type": "string" },
+    "branch": { "type": "string" },
+    "claimed_checks": {
+      "type": "object",
+      "properties": { "pass": { "type": "integer" }, "fail": { "type": "integer" } }
+    },
+    "verified": {
+      "type": "object",
+      "properties": {
+        "ran": { "type": "boolean" },
+        "pass": { "type": "integer" },
+        "fail": { "type": "integer" },
+        "details": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "properties": { "index": { "type": "integer" }, "exit": { "type": "integer" }, "tail": { "type": "string" } }
+          }
+        }
+      }
+    },
+    "warnings": { "type": "array", "items": { "type": "string" } },
+    "note": { "type": "string" },
+    "retry_of": { "type": "string" }
+  }
+}
